@@ -5,6 +5,9 @@
       <div class="banner">
         <div class="title">
           Arca<span class="dark-text">dex</span>
+          <div class="subtitle">
+            Découvre de nouveaux Pokémon
+          </div>
         </div>
       </div>
       <div class="content">
@@ -72,13 +75,18 @@ export default {
     width: 100%;
     height: 250px;
     background-color: #cfd1d2;
-    font-size: 100px;
     color: #CF3935;
     display: flex;
   }
 
   .main-content .banner .title {
     margin: auto;
+    font-size: 100px;
+  }
+
+  .main-content .banner .title .subtitle {
+    font-size: 30px;
+    color: #3F4A4F;
   }
 
   .main-content .banner .icon {

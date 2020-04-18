@@ -1,7 +1,7 @@
 <template>
   <div class="paragraph">
       <h1>
-          <img :src="'https://www.pokebip.com/pokedex-images/artworks/59.png'" alt="arcanin" class="before"> {{ title }}
+          <img src="favicon.png" alt="arcanin" class="before"> {{ title }}
       </h1>
 
       <p>
@@ -33,9 +33,8 @@ export default {
     }
 
     .before {
-        width: 70px;
+        width: 60px;
         margin-right: 20px;
-        opacity: 0.8;
     }
 
     p {
