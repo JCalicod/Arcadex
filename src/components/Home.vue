@@ -2,14 +2,16 @@
   <div class="home">
       <div class="pokemons-list" v-if="pokemons.length > 0">
         <div class="list-col" v-for="pokemon in pokemons.slice(0, 9)" :key="pokemon.id">
-          <div class="pokemon-card">
-            <div class="square">
-              <img :src="'https://www.pokebip.com/pokedex-images/artworks/' + pokemon.id + '.png'" alt="">
+            <div class="pokemon-card">
+              <router-link :to="{ path: 'Pokemon/' + pokemon.id }">
+                <div class="square">
+                  <img :src="'https://www.pokebip.com/pokedex-images/artworks/' + pokemon.id + '.png'" alt="">
+                </div>
+                <div class="text-content">
+                  #{{ pokemon.id }} - {{ pokemon.names[6].name }}
+                </div>
+              </router-link>
             </div>
-            <div class="text-content">
-              #{{ pokemon.id }} - {{ pokemon.names[6].name }}
-            </div>
-          </div>
         </div>
       </div>
       <div v-else class="loader">
@@ -50,6 +52,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+  a {
+    text-decoration: none;
+  }
 
   @-webkit-keyframes rotating {
     from {
