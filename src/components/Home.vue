@@ -3,14 +3,14 @@
       <div class="pokemons-list" v-if="pokemons.length > 0">
         <div class="list-col" v-for="pokemon in pokemons.slice(0, 9)" :key="pokemon.id">
             <div class="pokemon-card">
-              <router-link :to="{ path: 'Pokemon/' + pokemon.id }">
-                <div class="square">
+              <div class="square">
+                <router-link :to="{ path: 'Pokemon/' + pokemon.id }">
                   <img :src="'https://www.pokebip.com/pokedex-images/artworks/' + pokemon.id + '.png'" alt="">
-                </div>
-                <div class="text-content">
-                  #{{ pokemon.id }} - {{ pokemon.names[6].name }}
-                </div>
-              </router-link>
+                </router-link>
+              </div>
+              <div class="text-content">
+                #{{ pokemon.id }} - {{ pokemon.names[6].name }}
+              </div>
             </div>
         </div>
       </div>
