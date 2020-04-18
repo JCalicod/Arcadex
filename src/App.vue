@@ -96,8 +96,4 @@ export default {
   .main-content .banner .dark-text {
     color: #3F4A4F;
   }
-
-  .main-content .content {
-    padding: 20px;
-  }
 </style>

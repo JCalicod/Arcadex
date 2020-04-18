@@ -1,6 +1,10 @@
 <template>
   <div class="home">
     <div class="home-content" v-if="pokemons.length > 0">
+      <div class="search-block">
+        Rechercher un Pokémon par <span class="red-text">Nom</span> ou <span class="red-text">numéro</span><br>
+        <input type="text" placeholder="Exemples: 1, Pikachu, .." v-model="filter">
+      </div>
       <div class="pokemons-list">
         <div class="list-col" v-for="pokemon in pokemons" :key="pokemon.id">
             <div class="pokemon-card">
@@ -33,8 +37,8 @@ export default {
   data: () => {
     return {
       counter: 9, 
-      pokemonList: [], 
-      taken: []
+      taken: [], 
+      filter: ''
     }
   },
   computed: {
@@ -50,8 +54,22 @@ export default {
 
   methods: {
     find: function(list, len) {
+      var result = [];
+
+      if (this.filter != '') {
+        var nb_elem = 0;
+        for (var c = 0; c < len; c++) {
+          if (list[c].names[6].name.indexOf(this.filter) !== -1 || list[c].id.toString().indexOf(this.filter) !== -1) {
+            result.push(list[c]);
+            nb_elem++;
+          }
+          if (nb_elem == 9)
+            break;
+        }
+      }
+      else {
         var nb = this.counter - this.taken.length;
-        var result = [];
+
         for (var i = 0; i < this.taken.length; i++) {
           result.push(this.taken[i]);
         }
@@ -62,9 +80,10 @@ export default {
           }
           result.push(list[x]);
           this.taken.push(list[x]);
+          
         }
-        this.pokemonList = result;
-        return result;
+      }
+      return result;
     }
   }
 
@@ -74,12 +93,37 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+  .red-text {
+    color: #E85E5B;
+  }
+
+  .search-block {
+    background-color: #3F4A4F;
+    color: #fff;
+    margin-bottom: 30px;
+    padding: 20px;
+  }
+
+  input {
+    border: 0;
+    border-bottom: 2px solid #A6ABAE;
+    padding: 5px;
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 250px;
+    background: #3F4A4F;
+    color: #fff;
+  }
+
   a {
     text-decoration: none;
   }
 
   .home-content {
     text-align: center;
+    font-size: 25px;
+    margin-bottom: 30px;
   }
 
   .home-content button {
