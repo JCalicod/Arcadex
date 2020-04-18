@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-      <div class="pokemons-list" v-if="pokemons.length > 0">
-        <div class="list-col" v-for="pokemon in pokemons.slice(0, 9)" :key="pokemon.id">
+    <div class="home-content" v-if="pokemons.length > 0">
+      <div class="pokemons-list">
+        <div class="list-col" v-for="pokemon in pokemons" :key="pokemon.id">
             <div class="pokemon-card">
               <div class="square">
                 <router-link :to="{ path: 'Pokemon/' + pokemon.id }">
@@ -14,10 +15,13 @@
             </div>
         </div>
       </div>
-      <div v-else class="loader">
-        <img src="favicon.png" alt="loader"><br>
-        Chargement des Pokémon
-      </div>
+      <button class="more" v-on:click="counter += 9">Charger d'autres Pokémon</button>
+    </div>
+    <div v-else class="loader">
+      <img src="favicon.png" alt="loader"><br>
+      Chargement des Pokémon
+    </div>
+
     </div>
 </template>
 
@@ -26,25 +30,42 @@
 export default {
   name: 'Home',
 
+  data: () => {
+    return {
+      counter: 9, 
+      pokemonList: [], 
+      taken: []
+    }
+  },
   computed: {
     pokemons() {
-      var pokemons = this.$store.getters.getPokemons;
-      var nb = 9;
-      var result = new Array(nb);
-      var len = pokemons.length;
+      var list = this.$store.getters.getPokemons;
+      var len = list.length;
       if (len == 807) {
-        var taken = new Array(len);
-
-        while (nb--) {
-          var x = Math.floor(Math.random() * len);
-          result[nb] = pokemons[x in taken ? taken[x] : x];
-          taken[x] = --len in taken ? taken[len] : len;
-        }
-        console.log(result.length);
-        return result;
+        return this.find(list, len);
       }
       return [];
-    },
+    }
+  },
+
+  methods: {
+    find: function(list, len) {
+        var nb = this.counter - this.taken.length;
+        var result = [];
+        for (var i = 0; i < this.taken.length; i++) {
+          result.push(this.taken[i]);
+        }
+        while (nb--) {
+          var x = Math.floor(Math.random() * len);
+          while (list[x] in this.taken) {
+            x = Math.floor(Math.random() * len);
+          }
+          result.push(list[x]);
+          this.taken.push(list[x]);
+        }
+        this.pokemonList = result;
+        return result;
+    }
   }
 
 }
@@ -55,6 +76,19 @@ export default {
 
   a {
     text-decoration: none;
+  }
+
+  .home-content {
+    text-align: center;
+  }
+
+  .home-content button {
+    border: 0;
+    padding: 10px;
+    background: #CF3935;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
   }
 
   @-webkit-keyframes rotating {
