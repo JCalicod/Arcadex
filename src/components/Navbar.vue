@@ -37,6 +37,10 @@ export default {
         height: 30px;
     }
 
+    .navbar a.router-link-active {
+        background: #3F4A4F;
+    }
+
     .navbar a:first-of-type {
         background: #3F4A4F;
     }
