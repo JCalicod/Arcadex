@@ -33,11 +33,6 @@ export default {
     document.title = 'Arcadex';
     this.getAll();
   },
-  computed: {
-    pokemons() {
-      return this.$store.getters.getPokemons;
-    },
-  },
   methods: {
     getAll() {
       for (let id = 1; id <= 807; id++) {
