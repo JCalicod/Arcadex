@@ -31,10 +31,11 @@ export default {
   }, 
   created() {
     document.title = 'Arcadex';
-    this.getAll();
+    this.getPokemons();
+    this.getTypes();
   },
   methods: {
-    getAll() {
+    getPokemons: function() {
       for (let id = 1; id <= 807; id++) {
         axios.get('https://pokeapi.co/api/v2/pokemon-species/' + id + '/')
           .then((response) => {          
@@ -43,6 +44,79 @@ export default {
             console.log(error);
           });
       }
+    }, 
+    getTypes: function() {
+      for (let id = 1; id <= 18; id++) {
+        axios.get('https://pokeapi.co/api/v2/type/' + id + '/')
+          .then((response) => {
+              var type = response.data;
+              type = this.setTypeColor(type);
+              this.$store.commit('setTypes', type);
+          }).catch(error => {
+            console.log(error);
+          });
+      }
+    }, 
+    setTypeColor(type) {
+        switch (type.names[2].name) {
+          case 'Normal':
+            type.color = '#A8A878';
+            break;
+          case 'Vol':
+            type.color = '#A890F0';
+            break;
+          case 'Roche':
+            type.color = '#B8A038';
+            break;
+          case 'Insecte':
+            type.color = '#A8B820';
+            break;
+          case 'Acier':
+            type.color = '#B8B8D0';
+            break;
+          case 'Sol':
+            type.color = '#E0C068';
+            break;
+          case 'Fée':
+            type.color = '#FFAAFF';
+            break;
+          case 'Spectre':
+            type.color = '#705898';
+            break;
+          case 'Feu':
+            type.color = '#F08030';
+            break;
+          case 'Plante':
+            type.color = '#78C850';
+            break;
+          case 'Eau':
+            type.color = '#6890F0';
+            break;
+          case 'Dragon':
+            type.color = '#7038F8';
+            break;
+          case 'Psy':
+            type.color = '#F85888';
+            break;
+          case 'Poison':
+            type.color = '#A040A0';
+            break;
+          case 'Combat':
+            type.color = '#C03028';
+            break;
+          case 'Électrik':
+            type.color = '#F8D030';
+            break;
+          case 'Ténèbres':
+            type.color = '#705848';
+            break;
+          case 'Glace':
+            type.color = '#98D8D8';
+            break;
+          default:
+            console.log('Type error');
+        }
+        return type;
     }
   }
 }
