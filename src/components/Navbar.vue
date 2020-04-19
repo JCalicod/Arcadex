@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
         <router-link to="/"><img src="../../public/favicon.png" alt="Logo"></router-link>
-        <router-link to="/filters">Recherche avancée</router-link>
+        <router-link to="/filters">Recherche par type</router-link>
         <router-link to="/about">A propos</router-link>
     </div>
 </template>
