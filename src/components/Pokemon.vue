@@ -5,7 +5,7 @@
             <img :src="'https://www.pokebip.com/pokedex-images/artworks/' + pokemon.id + '.png'" alt="">
         </div>
         <div class="pokemon-summary">
-            #{{ pokemon.id }} - {{ pokemon.names[6].name }}
+            #{{ pokemon.id }} - {{ pokemon.names[6].name }} | {{ pokemon.generation.name }}
             <div class="data">
                 <p>
                     <span class="desc-item">Bonheur :</span> {{ pokemon.base_happiness }}<br>
@@ -47,11 +47,43 @@ export default {
                             pokemon.description = pokemon.flavor_text_entries[j].flavor_text;
                         }
                     }
+
+                    pokemon = this.getGeneration(pokemon);
                     
                     return pokemon;
                 }
             }
             return 1;
+        }
+    }, 
+    methods: {
+        getGeneration: function(pokemon) {
+            switch (pokemon.generation.name) {
+                        case 'generation-i':
+                            pokemon.generation.name = '1ère Génération';
+                            break;
+                        case 'generation-ii':
+                            pokemon.generation.name = '2ème Génération';
+                            break;
+                        case 'generation-iii':
+                            pokemon.generation.name = '3ème Génération';
+                            break;
+                        case 'generation-iv':
+                            pokemon.generation.name = '4ème Génération';
+                            break;
+                        case 'generation-v':
+                            pokemon.generation.name = '5ème Génération';
+                            break;
+                        case 'generation-vi':
+                            pokemon.generation.name = '6ème Génération';
+                            break;
+                        case 'generation-vii':
+                            pokemon.generation.name = '7ème Génération';
+                            break;
+                        default:
+                            console.log('Generation error');
+            }
+            return pokemon;
         }
     }
 }

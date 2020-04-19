@@ -6,7 +6,7 @@
             </router-link>
         </div>
         <div class="text-content">
-            #{{ pokemon.id }} - {{ pokemon.names[6].name }}
+            #{{ pokemon.id }} - {{ pokemon.names[6].name }}<br>
         </div>
     </div>
 </template>
