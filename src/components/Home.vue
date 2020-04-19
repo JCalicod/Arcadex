@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <div class="home-content" v-if="pokemons.length > 0">
+    <div class="home-content" v-if="loadedPokemons == 807">
       <div class="search-block">
         Rechercher un Pokémon par <span class="red-text">Nom</span> ou <span class="red-text">numéro</span><br>
-        <input type="text" placeholder="Exemples: 1, Pikachu, .." v-model="filter">
+        <input type="text" id="search" placeholder="Exemples: 1, Pikachu, .." v-model="filter">
       </div>
       <div class="pokemons-list">
         <div class="list-col" v-for="pokemon in pokemons" :key="pokemon.id">
@@ -19,7 +19,7 @@
             </div>
         </div>
       </div>
-      <button class="more" v-on:click="counter += 9">Charger d'autres Pokémon</button>
+      <button class="more" v-on:click="counter += 9" v-if="seen">Charger d'autres Pokémon</button>
     </div>
     <div v-else class="loader">
       <img src="favicon.png" alt="loader"><br>
@@ -36,14 +36,23 @@ export default {
 
   data: () => {
     return {
+      allPokemons: [],
       counter: 9, 
       taken: [], 
-      filter: ''
+      filter: '', 
+      seen: true
     }
   },
   computed: {
+    loadedPokemons() {
+      var len = this.$store.getters.getPokemons.length;
+      if (len == 807) {
+        return this.setAllPokemons();
+      }
+      return len;
+    }, 
     pokemons() {
-      var list = this.$store.getters.getPokemons;
+      var list = this.allPokemons;
       var len = list.length;
       if (len == 807) {
         return this.find(list, len);
@@ -53,10 +62,15 @@ export default {
   },
 
   methods: {
+    setAllPokemons: function() {
+      this.allPokemons = this.$store.getters.getPokemons;
+      return this.allPokemons.length;
+    },
     find: function(list, len) {
       var result = [];
 
       if (this.filter != '') {
+        this.seen = false;
         var nb_elem = 0;
         for (var c = 0; c < len; c++) {
           if (list[c].names[6].name.indexOf(this.filter) !== -1 || list[c].id.toString().indexOf(this.filter) !== -1) {
@@ -68,6 +82,7 @@ export default {
         }
       }
       else {
+        this.seen = true;
         var nb = this.counter - this.taken.length;
 
         for (var i = 0; i < this.taken.length; i++) {
