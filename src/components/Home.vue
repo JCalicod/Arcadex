@@ -73,7 +73,7 @@ export default {
         this.seen = false;
         var nb_elem = 0;
         for (var c = 0; c < len; c++) {
-          if (list[c].names[6].name.indexOf(this.filter) !== -1 || list[c].id.toString().indexOf(this.filter) !== -1) {
+          if (list[c].names[6].name.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1 || list[c].id.toString().indexOf(this.filter) !== -1) {
             result.push(list[c]);
             nb_elem++;
           }
