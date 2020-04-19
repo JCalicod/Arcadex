@@ -6,6 +6,9 @@
         </div>
         <div class="pokemon-summary">
             #{{ pokemon.id }} - {{ pokemon.names[6].name }} | {{ pokemon.generation.name }}
+            <span class="types" v-for="type in pokemon.types" :key="type.id">
+                    <span :style="'background-color:'+type.color">{{ type.names[2].name }}</span>
+            </span>
             <div class="data">
                 <p>
                     <span class="desc-item">Bonheur :</span> {{ pokemon.base_happiness }}<br>
@@ -95,6 +98,17 @@ export default {
     .container {
         margin-bottom: 150px;
         margin-top: 50px;
+    }
+
+    .types {
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    .types > span {
+        border-radius: 5px;
+        padding: 5px;
+        text-align: center;
     }
 
     .pokemon {

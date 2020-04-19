@@ -31,39 +31,10 @@ export default {
   }, 
   created() {
     document.title = 'Arcadex';
-    this.getPokemons();
     this.getTypes();
+    this.getPokemons();
   },
   methods: {
-    getPokemons: function() {
-      for (let id = 1; id <= 807; id++) {
-        axios.get('https://pokeapi.co/api/v2/pokemon-species/' + id + '/')
-          .then((response) => {          
-              var pokemon = response.data;
-              pokemon = this.setStats(pokemon);
-              this.$store.commit('setPokemons', pokemon);
-          }).catch(error => {
-            console.log(error);
-          });
-      }
-    }, 
-    setStats: function(pokemon) {
-      axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon.id + '/')
-          .then((response) => {
-              var details = response.data;      
-              pokemon.speed = details.stats[0].base_stat;
-              pokemon.specialDefense = details.stats[1].base_stat;
-              pokemon.specialAttack = details.stats[2].base_stat;
-              pokemon.defense = details.stats[3].base_stat;
-              pokemon.attack = details.stats[4].base_stat;
-              pokemon.hp = details.stats[5].base_stat;
-              return pokemon;
-          }).catch(error => {
-            console.log(error);
-            return pokemon;
-          });
-          return pokemon;
-    },
     getTypes: function() {
       for (let id = 1; id <= 18; id++) {
         axios.get('https://pokeapi.co/api/v2/type/' + id + '/')
@@ -136,6 +107,53 @@ export default {
             console.log('Type error');
         }
         return type;
+    },
+    getPokemons: function() {
+      for (let id = 1; id <= 807; id++) {
+        axios.get('https://pokeapi.co/api/v2/pokemon-species/' + id + '/')
+          .then((response) => {          
+              var pokemon = response.data;
+              pokemon = this.setPokemonStats(pokemon);
+              pokemon = this.setPokemonType(pokemon);
+              this.$store.commit('setPokemons', pokemon);
+          }).catch(error => {
+            console.log(error);
+          });
+      }
+    }, 
+    setPokemonStats: function(pokemon) {
+      axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon.id + '/')
+          .then((response) => {
+              var details = response.data;      
+              pokemon.speed = details.stats[0].base_stat;
+              pokemon.specialDefense = details.stats[1].base_stat;
+              pokemon.specialAttack = details.stats[2].base_stat;
+              pokemon.defense = details.stats[3].base_stat;
+              pokemon.attack = details.stats[4].base_stat;
+              pokemon.hp = details.stats[5].base_stat;
+              return pokemon;
+          }).catch(error => {
+            console.log(error);
+            return pokemon;
+          });
+          return pokemon;
+    },
+    setPokemonType: function(pokemon) {
+      var types = [];
+      var list = this.$store.getters.getTypes;
+       for (var i = 0; i < list.length; i++) {
+        for (var j = 0; j < list[i].pokemon.length; j++) {
+          if (list[i].pokemon[j].pokemon.name == pokemon.name) {
+            types.push(list[i]);
+          }
+          if (types.length == 2) {
+            pokemon.types = types;
+            return pokemon;
+          }
+        }
+       }
+       pokemon.types = types;
+       return pokemon;
     }
   }
 }
