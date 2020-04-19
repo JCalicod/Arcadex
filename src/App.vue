@@ -37,9 +37,11 @@ export default {
   methods: {
     getTypes: function() {
       for (let id = 1; id <= 18; id++) {
+        // Récupération des 18 types
         axios.get('https://pokeapi.co/api/v2/type/' + id + '/')
           .then((response) => {
               var type = response.data;
+              // On ajoute au type une couleur
               type = this.setTypeColor(type);
               this.$store.commit('setTypes', type);
           }).catch(error => {
@@ -122,9 +124,11 @@ export default {
       }
     }, 
     setPokemonStats: function(pokemon) {
+      // Récupération d'un pokémon par id
       axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon.id + '/')
           .then((response) => {
               var details = response.data;      
+              // On ajoute à l'objet pokemon reçu en paramètre ses stats
               pokemon.speed = details.stats[0].base_stat;
               pokemon.specialDefense = details.stats[1].base_stat;
               pokemon.specialAttack = details.stats[2].base_stat;

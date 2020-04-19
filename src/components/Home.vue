@@ -51,6 +51,7 @@ export default {
     loadedPokemons() {
       var len = this.$store.getters.getPokemons.length;
       if (len == 807) {
+        // Si tous les pokémon ont été chargés
         return this.setAllPokemons();
       }
       return len;
@@ -59,6 +60,7 @@ export default {
       var list = this.allPokemons;
       var len = list.length;
       if (len == 807) {
+        // Si tous les pokémon ont été chargés
         return this.find(list, len);
       }
       return [];
@@ -74,6 +76,7 @@ export default {
       var result = [];
 
       if (this.filter != '') {
+        // Si l'utilisateur utilise la recherche
         result = this.findWithFilter(list, len);
       }
       else {
@@ -86,6 +89,7 @@ export default {
       this.seen = false;
       var nb_elem = 0;
       for (var c = 0; c < len; c++) {
+        // On compare sans prendre en compte la casse
         if (list[c].names[6].name.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1 || list[c].id.toString().indexOf(this.filter) !== -1) {
           result.push(list[c]);
           nb_elem++;
@@ -104,6 +108,7 @@ export default {
         result.push(this.taken[i]);
       }
       while (nb--) {
+        // On génère un nombre aléatoire tant qu'on ne trouve pas un Pokémon pas déjà affiché
         var x = Math.floor(Math.random() * len);
         while (list[x] in this.taken) {
           x = Math.floor(Math.random() * len);
