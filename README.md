@@ -47,3 +47,23 @@ Enfin, il est possible de **rejoindre la Page Pokémon** en cliquant sur un Pok�
 ### Page A propos
 
 La page A propos présente notre **Projet** ainsi que notre **Equipe** afin de donner à l'utilisateur le contexte de la création de ce projet.
+
+## Code
+
+### Router
+
+Nos routes sont définies via le vue-router dans le fichier **src/router/index.js** où sont déclarées nos différents composants principaux.
+
+### Store
+
+Nous stockons différentes données relatives à l'api via le Store grâce notamment au fichier **src/store.js** où sont déclarés les paramètres ainsi que leurs getter/setter.
+
+Grâce à cela, nous pouvons utiliser les données relatives à l'api **dans tous nos composants**, sans avoir à refaire un appel en REST.
+
+### Utilisation de l'api
+
+Notre fichier vue principal est le fichier src/App.vue. Grâce à **axios**, nous pouvons effectuer un appel REST.
+
+Nous effectuons donc un appel à la route **pokemon-species** de l'api pokeapi 807 fois afin de récupérer les 807 pokémon présents sur cette api.
+
+Nous complétons ces données via d'autres appels, notamment pour le type des Pokémon via la route **type** ou encore via la route **pokemon** afin d'obtenir des informations complémentaires sur les Pokémon déjà récupérés via pokemon-species.
