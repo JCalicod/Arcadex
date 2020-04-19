@@ -62,8 +62,30 @@ Grâce à cela, nous pouvons utiliser les données relatives à l'api **dans tou
 
 ### Utilisation de l'api
 
-Notre fichier vue principal est le fichier src/App.vue. Grâce à **axios**, nous pouvons effectuer un appel REST.
+Notre fichier vue principal est le fichier **src/App.vue**. Grâce à **axios**, nous pouvons effectuer un appel REST.
 
 Nous effectuons donc un appel à la route **pokemon-species** de l'api pokeapi 807 fois afin de récupérer les 807 pokémon présents sur cette api.
 
 Nous complétons ces données via d'autres appels, notamment pour le type des Pokémon via la route **type** ou encore via la route **pokemon** afin d'obtenir des informations complémentaires sur les Pokémon déjà récupérés via pokemon-species.
+
+### Appels de composants
+
+Nous avons choisi d'**inclure certains composants dans d'autres** afin de **ne pas à avoir de doublons** dans nos templates ou encore pour mieux **espacer notre code**.
+
+Dans notre page **src/App.vue**, nous avons ainsi défini la structure principale de nos pages en incluant notre Navbar puis notre bannière et enfin en bas de page le Footer.
+
+La page **src/components/Home.vue** appelle le composant **src/components/PokemonCard.vue** à chaque Pokémon qu'il affiche car cela correspond à un élément redondant. Il lui **envoie ainsi l'objet pokemon** afin que le composant PokemonCard l'utilise en tant que **props**.
+
+### Computed et methods
+
+En règle générale, nous avons utilisés un **computed afin de vérifier que tous les Pokémon / types soient bien chargés**. S'en suit alors l'appel d'une **méthode récupérant le/les bon(s) Pokémon/type(s)** en fonction de la page et de la requête demandée.
+
+### Chargement des Pokémon / Types
+
+Grâce à l'utilisation de **v-if**, nous avons pu lancer des écrans de chargement lorsqu'un élément n'était pas encore chargé.
+
+### Interactions
+
+Grâce à l'utilisation de **v-on:click**, nous avons pu **appeler des méthodes** ou **modifier des data** afin de pouvoir modifier l'affichage de la page en fonction des choix de l'utilisateur.
+
+Gaëtan BILLAUT - Gianni GIUDICE
