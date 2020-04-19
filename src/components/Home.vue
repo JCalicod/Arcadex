@@ -70,33 +70,43 @@ export default {
       var result = [];
 
       if (this.filter != '') {
-        this.seen = false;
-        var nb_elem = 0;
-        for (var c = 0; c < len; c++) {
-          if (list[c].names[6].name.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1 || list[c].id.toString().indexOf(this.filter) !== -1) {
-            result.push(list[c]);
-            nb_elem++;
-          }
-          if (nb_elem == 9)
-            break;
-        }
+        result = this.findWithFilter(list, len);
       }
       else {
-        this.seen = true;
-        var nb = this.counter - this.taken.length;
+        result = this.findWithoutFilter(list, len);
+      }
+      return result;
+    },
+    findWithFilter: function(list, len) {
+      var result = [];
+      this.seen = false;
+      var nb_elem = 0;
+      for (var c = 0; c < len; c++) {
+        if (list[c].names[6].name.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1 || list[c].id.toString().indexOf(this.filter) !== -1) {
+          result.push(list[c]);
+          nb_elem++;
+        }
+        if (nb_elem == 9)
+          break;
+      }
+      return result;
+    }, 
+    findWithoutFilter: function(list, len) {
+      var result = [];
+      this.seen = true;
+      var nb = this.counter - this.taken.length;
 
-        for (var i = 0; i < this.taken.length; i++) {
-          result.push(this.taken[i]);
+      for (var i = 0; i < this.taken.length; i++) {
+        result.push(this.taken[i]);
+      }
+      while (nb--) {
+        var x = Math.floor(Math.random() * len);
+        while (list[x] in this.taken) {
+          x = Math.floor(Math.random() * len);
         }
-        while (nb--) {
-          var x = Math.floor(Math.random() * len);
-          while (list[x] in this.taken) {
-            x = Math.floor(Math.random() * len);
-          }
-          result.push(list[x]);
-          this.taken.push(list[x]);
+        result.push(list[x]);
+        this.taken.push(list[x]);
           
-        }
       }
       return result;
     }
