@@ -6,17 +6,27 @@
         <input type="text" id="search" placeholder="Exemples: 1, Pikachu, .." v-model="filter">
       </div>
       <div class="pokemons-list">
-        <div class="list-col" v-for="pokemon in pokemons" :key="pokemon.id">
-            <div class="pokemon-card">
-              <div class="square">
-                <router-link :to="{ path: 'Pokemon/' + pokemon.id }">
-                  <img :src="'https://www.pokebip.com/pokedex-images/artworks/' + pokemon.id + '.png'" alt="">
-                </router-link>
+        <div class="pokemons-list-not-empty" v-if="pokemons.length > 0">
+          <div class="list-col" v-for="pokemon in pokemons" :key="pokemon.id">
+              <div class="pokemon-card">
+                <div class="square">
+                  <router-link :to="{ path: 'Pokemon/' + pokemon.id }">
+                    <img :src="'https://www.pokebip.com/pokedex-images/artworks/' + pokemon.id + '.png'" :alt="pokemon.names[6].name">
+                  </router-link>
+                </div>
+                <div class="text-content">
+                  #{{ pokemon.id }} - {{ pokemon.names[6].name }}
+                </div>
               </div>
-              <div class="text-content">
-                #{{ pokemon.id }} - {{ pokemon.names[6].name }}
-              </div>
-            </div>
+          </div>
+        </div>
+        <div class="empty-list" v-else>
+          <img :src="'https://www.pokebip.com/pokedex-images/artworks/54.png'" alt="Not found">
+          <img :src="'https://www.pokebip.com/pokedex-images/artworks/54.png'" alt="Not found">
+          <img :src="'https://www.pokebip.com/pokedex-images/artworks/54.png'" alt="Not found"><br>
+          Psayayaaaaye..<br>
+          Aucun Pokémon ne correspond à cette recherche.<br>
+          Veuillez vérifier l'orthographe du mot ou l'identifiant saisi.
         </div>
       </div>
       <button class="more" v-on:click="counter += 9" v-if="seen">Charger d'autres Pokémon</button>
@@ -173,7 +183,7 @@ export default {
     margin-top: 50px;
     text-align: center;
     font-size: 20px;
-    margin-bottom: 500px;
+    margin-bottom: 170px;
   }
 
   .loader img {
@@ -182,10 +192,14 @@ export default {
     -webkit-animation: rotating 2s linear infinite;
   }
 
-  .pokemons-list {
+  .pokemons-list > div.pokemons-list-not-empty {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  .pokemons-list > div.empty-list img {
+    width: 100px;
   }
 
   .list-col {
