@@ -45,3 +45,5 @@ Il est ensuite possible de n'afficher que les Pokémon **selon un certain type**
 Enfin, il est possible de **rejoindre la Page Pokémon** en cliquant sur un Pokémon.
 
 ### Page A propos
+
+La page A propos présente notre **Projet** ainsi que notre **Equipe** afin de donner à l'utilisateur le contexte de la création de ce projet.
