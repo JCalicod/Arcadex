@@ -37,3 +37,11 @@ Les données de **numéro**, de **nom**, les **statistiques** (attaque, défense
 Enfin, un **lien** permet de **retourner vers le Pokédex** et découvrir de nouveaux Pokémon choisis aléatoirement.
 
 ### Page Recherche par type
+
+La page Recherche par type présente tout d'abord les **Pokémon dans l'ordre du Pokédex**.
+
+Il est ensuite possible de n'afficher que les Pokémon **selon un certain type** en **cliquant sur un type**. (les 18 types du jeu sont présents)
+
+Enfin, il est possible de **rejoindre la Page Pokémon** en cliquant sur un Pokémon.
+
+### Page A propos
