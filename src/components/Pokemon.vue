@@ -45,12 +45,14 @@ export default {
             for (var i = 0; i < pokemons.length; i++) {
                 if (pokemons[i].id == pokemon_id) {
                     var pokemon = pokemons[i];
+                    // On récupère la bonne description
                     for (var j = 0; j < pokemon.flavor_text_entries.length; j++) {
                         if (pokemon.flavor_text_entries[j].language.name == 'fr') {
                             pokemon.description = pokemon.flavor_text_entries[j].flavor_text;
                         }
                     }
 
+                    // On récupère sa génération en français
                     pokemon = this.getGeneration(pokemon);
                     
                     return pokemon;

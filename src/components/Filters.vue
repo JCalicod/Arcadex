@@ -63,13 +63,13 @@ export default {
           for (var j = 0; j < type.pokemon.length; j++) {
             var find = false;
             for (var i = 0; i < list.length && !find; i++) {
+                // On vérifie si le pokémon apparaît dans la liste des types
                 if (list[i].name == type.pokemon[j].pokemon.name) {
                     this.pokemons.push(list[i]);
                     find = true;
                 }
             }
           }
-          console.log(this.pokemons);
       }
   }
 }
