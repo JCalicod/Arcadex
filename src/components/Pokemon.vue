@@ -136,7 +136,7 @@ export default {
     }
 
     .pokemon-summary {
-        font-size: 25px;
+        font-size: 20px;
         padding: 20px;
         height: 300px;
     }
