@@ -6,12 +6,21 @@
         </div>
         <div class="pokemon-summary">
             #{{ pokemon.id }} - {{ pokemon.names[6].name }}
+            <div class="data">
+                <p>
+                    <span class="desc-item">Bonheur :</span> {{ pokemon.base_happiness }}<br>
+                    <span class="desc-item">Taux de capture :</span> {{ pokemon.capture_rate }}
+                </p>
+                <p class="stats">
+                    <span class="desc-item">Vitesse :</span> {{ pokemon.speed }}<br>
+                    <span class="desc-item">Défense spéciale :</span> {{ pokemon.specialDefense }}<br>
+                    <span class="desc-item">Attaque spéciale :</span> {{ pokemon.specialAttack }}<br>
+                    <span class="desc-item">Défense :</span> {{ pokemon.defense }}<br>
+                    <span class="desc-item">Attaque :</span> {{ pokemon.attack }}<br>
+                    <span class="desc-item">PV :</span> {{ pokemon.hp }}
+                </p>
+            </div>
             <p>
-                <span class="desc-item">Bonheur :</span> {{ pokemon.base_happiness }}<br>
-                <span class="desc-item">Taux de capture :</span> {{ pokemon.capture_rate }}
-            </p>
-            <p class="description">
-                <u>Description</u><br><br>
                 {{ pokemon.description }}
             </p>
         </div>
@@ -38,6 +47,7 @@ export default {
                             pokemon.description = pokemon.flavor_text_entries[j].flavor_text;
                         }
                     }
+                    
                     return pokemon;
                 }
             }
@@ -86,11 +96,18 @@ export default {
     }
 
     .pokemon-summary p {
-        font-size: 20px;
+        font-size: 16px;
     }
 
-    .pokemon-summary p.description {
-        margin-top: 50px;
+    .data {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .data .stats {
+        text-align: right;
     }
 
     .desc-item {

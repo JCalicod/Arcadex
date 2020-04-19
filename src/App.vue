@@ -39,12 +39,31 @@ export default {
       for (let id = 1; id <= 807; id++) {
         axios.get('https://pokeapi.co/api/v2/pokemon-species/' + id + '/')
           .then((response) => {          
-              this.$store.commit('setPokemons', response.data);
+              var pokemon = response.data;
+              pokemon = this.setStats(pokemon);
+              this.$store.commit('setPokemons', pokemon);
           }).catch(error => {
             console.log(error);
           });
       }
     }, 
+    setStats: function(pokemon) {
+      axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon.id + '/')
+          .then((response) => {
+              var details = response.data;      
+              pokemon.speed = details.stats[0].base_stat;
+              pokemon.specialDefense = details.stats[1].base_stat;
+              pokemon.specialAttack = details.stats[2].base_stat;
+              pokemon.defense = details.stats[3].base_stat;
+              pokemon.attack = details.stats[4].base_stat;
+              pokemon.hp = details.stats[5].base_stat;
+              return pokemon;
+          }).catch(error => {
+            console.log(error);
+            return pokemon;
+          });
+          return pokemon;
+    },
     getTypes: function() {
       for (let id = 1; id <= 18; id++) {
         axios.get('https://pokeapi.co/api/v2/type/' + id + '/')
